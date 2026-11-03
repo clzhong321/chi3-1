@@ -4,16 +4,19 @@
     <meta charset="UTF-8" />
     <title>食光小馆</title>
     <!-- GitHub Pages SPA 回退：刷新子页面时 404 会落到这个文件，
-         把路径转存到 query 里再跳回 index.html，由它还原路由 -->
+         把相对站点根目录的路径转存到 query 里再跳回首页，由首页脚本还原路由 -->
     <script>
       var l = window.location
+      var base = '/chi3-1/'
+      var p = l.pathname.indexOf(base) === 0 ? l.pathname.slice(base.length) : l.pathname.slice(1)
       l.replace(
         l.protocol +
           '//' +
           l.hostname +
           (l.port ? ':' + l.port : '') +
-          '/?/' +
-          l.pathname.slice(1).replace(/&/g, '~and~') +
+          base +
+          '?/' +
+          p.replace(/&/g, '~and~') +
           (l.search ? '&' + l.search.slice(1).replace(/&/g, '~and~') : '') +
           l.hash
       )
